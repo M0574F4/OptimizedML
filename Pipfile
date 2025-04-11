@@ -1,7 +1,27 @@
 [[source]]
+# Default Python Package Index
 name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
+# Add the specific source for PyTorch CUDA 12.4 wheels
+[[source]]
+name = "pytorch_cu124"
+url = "https://download.pytorch.org/whl/cu124"
+verify_ssl = true
+
 [packages]
-requests = "*"
+# Tell torch, torchvision, and torchaudio to use the pytorch_cu124 source
+# Specify the desired torch version. Use "*" for others to get compatible versions.
+torch = {version="==2.6.0", index="pytorch_cu124"}
+torchvision = {version="*", index="pytorch_cu124"}
+torchaudio = {version="*", index="pytorch_cu124"} # Include torchaudio
+
+[dev-packages]
+ipykernel = "*"
+
+[requires]
+# Make sure this matches your environment's Python version (e.g., 3.10, 3.11)
+# Check with `python --version` in your terminal if unsure.
+python_version = "3.11"
+
